@@ -32,11 +32,11 @@ public class Stage extends    javax.swing.JPanel
 
 		//shepherd = new Shepherd(this, grid.getCell(0, 2));
 		//sheep    = new Sheep(this, grid.getCell(0, 1));
-		wolf     = new Wolf(this, grid.getCell(3, 15));
+		//wolf     = new Wolf(this, grid.getCell(3, 15));
 		
 		shepherd = new Shepherd(this, grid.giveMeRandomCell());
 		sheep    = new Sheep(this, grid.giveMeRandomCell());
-		//wolf     = new Wolf(this, grid.giveMeRandomCell());
+		wolf     = new Wolf(this, grid.giveMeRandomCell());
 
 		registerMouseObserver(shepherd);
 
@@ -62,6 +62,7 @@ public class Stage extends    javax.swing.JPanel
 	}
 
 	public void step() {
+		System.out.println(sheep.getBehaviour());
 		sheep.act();
 		wolf.act();
 		readyToStep = false;
@@ -79,7 +80,7 @@ public class Stage extends    javax.swing.JPanel
 		int ydiff = to.y - from.y;
 		return grid.getCell(from.x + Integer.signum(xdiff), from.y + Integer.signum(ydiff));
 	}
-
+	
 	// implementation of MouseListener and MouseMotionListener
 	public void mouseClicked(MouseEvent e){
 		if (shepherd.getBounds().contains(e.getPoint())){

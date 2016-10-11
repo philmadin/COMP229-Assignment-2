@@ -6,13 +6,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public abstract class Character implements MouseObserver {
+	
 	protected Cell location;
 	protected Stage stage;
 	protected Color myColour;
 	protected Color mySelectedColour;
 	protected Color myBorderColour;
 	protected Behaviour behaviour;
-
+	
 	public Character(){}
 	public Character(Stage stage, Cell location, Color c, Color sc, Behaviour behaviour){
 		this.stage            = stage;
@@ -39,7 +40,9 @@ public abstract class Character implements MouseObserver {
 	}
 	public String getActor(){
 		return "Unknown!";
+
 	}
+	
 	// The argument is the stage on which to act.  Every actor needs a stage
 	public void act(){
 		location = behaviour.execute(stage, location);
