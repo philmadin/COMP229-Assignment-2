@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Main {
 
-	static Stage stage;
+	static Stage stage = Stage.getInstance();
 
 	public static void gameLoop() {
 		long lastStartTime = System.currentTimeMillis();
@@ -23,14 +23,13 @@ public class Main {
 			}
 		}
 	}
-
+	
 	public static void main(String[] args){
 		System.out.println("Sheep and Wolves");
 
-		stage = new Stage();
-		javax.swing.JFrame frame = new javax.swing.JFrame("Sheep and Wolves");
+    	javax.swing.JFrame frame = new javax.swing.JFrame("Sheep and Wolves");
 		frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		stage.setPreferredSize(new Dimension(1280,720));
+  		stage.setPreferredSize(new Dimension(1280,720));
 		frame.add(stage);
 		frame.pack();
 		frame.setVisible(true);

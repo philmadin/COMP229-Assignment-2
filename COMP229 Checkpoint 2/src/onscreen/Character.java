@@ -8,15 +8,13 @@ import java.awt.event.*;
 public abstract class Character implements MouseObserver {
 	
 	protected Cell location;
-	protected Stage stage;
 	protected Color myColour;
 	protected Color mySelectedColour;
 	protected Color myBorderColour;
 	protected Behaviour behaviour;
 	
 	public Character(){}
-	public Character(Stage stage, Cell location, Color c, Color sc, Behaviour behaviour){
-		this.stage            = stage;
+	public Character(Cell location, Color c, Color sc, Behaviour behaviour){
 		this.location         = location;
 		this.myColour         = c;
 		this.myBorderColour   = c;  // by default it is the same, it changes when the character is hightlighted
@@ -45,7 +43,7 @@ public abstract class Character implements MouseObserver {
 	
 	// The argument is the stage on which to act.  Every actor needs a stage
 	public void act(){
-		location = behaviour.execute(stage, location);
+		location = behaviour.execute(location);
 	}
 
 	public void mouseLeft(MouseEvent e){
@@ -64,7 +62,7 @@ public abstract class Character implements MouseObserver {
 	}
 
 	public Stage getStage(){
-		return stage;
+		return Stage.getInstance();
 	};
 	public Color getMyColour(){
 		return myColour;

@@ -3,7 +3,9 @@ import main.*;
 import onscreen.*;
 
 public class Passive implements Behaviour {
-	public Cell execute(Stage stage, Cell location){
+
+	@Override
+	public Cell execute(Cell location) {
 		return location;
 	}
 }

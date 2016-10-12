@@ -7,14 +7,14 @@ public class Patrol implements Behaviour{
 
 	boolean right=false;
 	@Override
-	public Cell execute(Stage stage, Cell location) {
+	public Cell execute(Cell location) {
 		onscreen.Cell returnable = null;
 		while(returnable == null){
 			try{
 				if(right==true){
-					returnable=stage.grid.getCell(location.x+1, location.y);
+					returnable=Stage.getInstance().grid.getCell(location.x+1, location.y);
 				}else{
-					returnable=stage.grid.getCell(location.x-1, location.y);			
+					returnable=Stage.getInstance().grid.getCell(location.x-1, location.y);			
 				}
 				
 			}catch(ArrayIndexOutOfBoundsException e){

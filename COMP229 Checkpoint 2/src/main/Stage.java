@@ -4,16 +4,22 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import behaviours.Chase;
+import behaviours.Passive;
 import onscreen.*;
 
 public class Stage extends    javax.swing.JPanel 
                    implements MouseListener,
                               MouseMotionListener {
+	private static Stage instance = new Stage();
+	
 	public Grid grid;
 	public onscreen.Character sheep;
 	public onscreen.Character wolf;
 	public onscreen.Character shepherd;
 	public boolean readyToStep;
+	public boolean sheepCaught = false;
 	public int gamesize=20;
 
 	Point lastMouseLoc = new Point(0, 0);
@@ -24,24 +30,25 @@ public class Stage extends    javax.swing.JPanel
 	public Stage() {
 		readyToStep = false;
 		grid = new Grid();
-		
-		for(int i = 0; i < gamesize; i++)
-			for(int j = 0; j < gamesize; j++)
-				registerMouseObserver(grid.getCell(i,j));
+
+		for(Cell c : grid) registerMouseObserver(c);
 		
 
-		//shepherd = new Shepherd(this, grid.getCell(0, 2));
-		//sheep    = new Sheep(this, grid.getCell(0, 1));
-		//wolf     = new Wolf(this, grid.getCell(3, 15));
+		shepherd = new Shepherd(grid.getCell(0, 2), new Passive());
+		sheep    = new Sheep(grid.getCell(0, 1), new Chase(shepherd));
+		wolf     = new Wolf(grid.getCell(3, 15), new Chase(sheep));
+		//shepherd = new Shepherd(grid.giveMeRandomCell(), new Passive());
+		//sheep    = new Sheep(grid.giveMeRandomCell(), new Chase(shepherd));
+		//wolf     = new Wolf(grid.giveMeRandomCell(), new Chase(sheep));
 		
-		shepherd = new Shepherd(this, grid.giveMeRandomCell());
-		sheep    = new Sheep(this, grid.giveMeRandomCell());
-		wolf     = new Wolf(this, grid.giveMeRandomCell());
-
 		registerMouseObserver(shepherd);
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
+	}
+
+	public static Stage getInstance() {
+		return instance;
 	}
 
 	public void paint(Graphics g) {
@@ -49,11 +56,10 @@ public class Stage extends    javax.swing.JPanel
 	}
 
 	public void draw(Graphics g) {
-
 		grid.draw(g);
+		sheep.draw(g);
 		wolf.draw(g);
 		shepherd.draw(g);
-		sheep.draw(g);
 		if (result()){
 			g.setColor(Color.BLACK);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
@@ -62,12 +68,11 @@ public class Stage extends    javax.swing.JPanel
 	}
 
 	public void step() {
-		System.out.println(sheep.getBehaviour());
 		sheep.act();
 		wolf.act();
 		readyToStep = false;
 		if(shepherd.getLocation()==sheep.getLocation()){
-			sheep = new CarriedCharacter(sheep);
+			shepherd = new CarriedCharacter(shepherd);
 		}
 	}
 

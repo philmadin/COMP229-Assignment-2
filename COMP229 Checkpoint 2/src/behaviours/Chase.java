@@ -3,12 +3,13 @@ import main.*;
 import onscreen.*;
 
 public class Chase implements Behaviour {
-  onscreen.Character target;
-  
-  public Chase(onscreen.Character target){this.target = target;}
+	onscreen.Character target;
 
-  public Cell execute(Stage stage, Cell location){
-    return stage.oneCellCloserTo(location, target.getLocation());
-  }
+	public Chase(onscreen.Character target){this.target = target;}
+
+	@Override
+	public Cell execute(Cell location) {
+		return Stage.getInstance().oneCellCloserTo(location, target.getLocation());
+	}
 
 }

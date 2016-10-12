@@ -10,12 +10,11 @@ public abstract class CharacterDecorator extends Character {
 	Character character;
 	public CharacterDecorator(Character c){
 		this.character = c;
-		this.character.stage            = c.getStage();
-		this.character.location         = c.getLocation();
-		this.character.myColour         = c.getMyColour();
-		this.character.myBorderColour   = c.getMyBorderColour();  // by default it is the same, it changes when the character is hightlighted
-		this.character.mySelectedColour = c.getMySelectedColour();
-		this.character.behaviour        = c.getBehaviour();
+		this.location         = c.getLocation();
+		this.myColour         = c.getMyColour();
+		this.myBorderColour   = c.getMyBorderColour();  // by default it is the same, it changes when the character is hightlighted
+		this.mySelectedColour = c.getMySelectedColour();
+		this.behaviour        = c.getBehaviour();
 	}
 
 	public void      act(){character.act();}

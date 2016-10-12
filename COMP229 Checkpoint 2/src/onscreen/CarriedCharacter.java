@@ -1,16 +1,20 @@
 package onscreen;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class CarriedCharacter extends CharacterDecorator{
-	
-	public CarriedCharacter(Character c) {
-		super(c);
-	}
+    public CarriedCharacter(Character c) {
+        super(c);
+    }
 
-    public void draw(Graphics g){
-		g.setColor(new java.awt.Color(255,255,255));
-    	g.fillRect(character.location.getTopLeft().x+5, character.location.getTopLeft().y+5, 25, 25);
+    @Override
+    public void draw(Graphics g) {
+        character.draw(g);
+        Rectangle r = character.getBounds();
+        g.setColor(Color.WHITE);
+        g.fillOval(r.x + 5, r.y + 5, 25, 25);
     }
 
 }

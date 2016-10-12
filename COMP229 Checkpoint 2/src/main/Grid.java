@@ -1,22 +1,19 @@
 package main;
 
 import java.awt.*;
+import java.util.Iterator;
+
 import onscreen.*;
 
-public class Grid {
+public class Grid implements Iterable<Cell> {
 	Cell[] cells = new Cell[400];
-	
+
 	public Grid(){
-		for(int i = 0; i < 20; i++)
-			for(int j = 0; j < 20; j++){
-				cells[i*20+j]= new Cell(i,j);
-      }
+		for(int i = 0; i < 400; i++) cells[i] = new Cell(i / 20, i % 20); //mathematical!
 	}
 
 	public void draw(Graphics g){
-		for(int i = 0; i < 20; i++)
-			for(int j = 0; j < 20; j++)
-				cells[i*20+j].draw(g);
+		for(Cell c : this) c.draw(g);
 	}
 
   public Cell getCell(int i, int j)        {return cells[i*20+j];}
@@ -38,5 +35,16 @@ public class Grid {
 		  	}
 		}
 		return null;
+	}
+
+	@Override
+	public Iterator<Cell> iterator() {
+		return new GridIterator();
+	}
+
+	private class GridIterator implements Iterator<Cell> {
+		private int index;
+		public boolean hasNext() { return index < cells.length; }
+		public Cell next() { return cells[index++]; }
 	}
 }
