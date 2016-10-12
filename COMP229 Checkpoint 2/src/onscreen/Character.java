@@ -12,13 +12,14 @@ public abstract class Character implements MouseObserver {
 	protected Color mySelectedColour;
 	protected Color myBorderColour;
 	protected Behaviour behaviour;
+	private boolean charPressed= false;
 	
 	public Character(){}
 	public Character(Cell location, Color c, Color sc, Behaviour behaviour){
 		this.location         = location;
 		this.myColour         = c;
-		this.myBorderColour   = c;  // by default it is the same, it changes when the character is hightlighted
 		this.mySelectedColour = sc;
+		this.myBorderColour   = c;  // by default it is the same, it changes when the character is hightlighted
 		this.behaviour        = behaviour;
 	}
 
@@ -36,9 +37,9 @@ public abstract class Character implements MouseObserver {
 		g.setColor(myBorderColour);
 		g.drawRect(location.getTopLeft().x,location.getTopLeft().y,35,35);
 	}
+	
 	public String getActor(){
 		return "Unknown!";
-
 	}
 	
 	// The argument is the stage on which to act.  Every actor needs a stage
@@ -46,24 +47,23 @@ public abstract class Character implements MouseObserver {
 		location = behaviour.execute(location);
 	}
 
+	
+	//Mouse behaviour
 	public void mouseLeft(MouseEvent e){
-		myBorderColour = myColour;
+    	charPressed=false;
 	}
-
 	public void mouseEntered(MouseEvent e){
 		myBorderColour = mySelectedColour;
+    	charPressed=true;
 	}
-
-	public void mouseClicked(MouseEvent e){
-	}
-
+	
+	
+	
 	public Rectangle getBounds(){
 		return location.getBounds();
 	}
 
-	public Stage getStage(){
-		return Stage.getInstance();
-	};
+	//All the getters
 	public Color getMyColour(){
 		return myColour;
 	};
@@ -76,5 +76,8 @@ public abstract class Character implements MouseObserver {
 	public Behaviour getBehaviour(){
 		return behaviour;
 	};
+    public boolean getCharPressed(){
+    	return charPressed;
+    }
 
 }

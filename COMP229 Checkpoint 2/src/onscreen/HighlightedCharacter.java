@@ -20,14 +20,14 @@ public class HighlightedCharacter extends CharacterDecorator {
 		g.drawRect(biggerBounds.x, biggerBounds.y, biggerBounds.width,biggerBounds.height);
 	}
 
-	public Rectangle getBounds() {
-		return biggerBounds;
-	}
-
 	public void mouseClicked(MouseEvent e) {
+		System.out.println("did something");
 		Stage stage = Stage.getInstance();
 		this.setLocation(stage.grid.cellAt(e.getPoint()));
 		stage.shepherd = character;
 		stage.readyToStep = true;
+		//this.setLocation(Stage.getInstance().grid.cellAt(e.getPoint()));
+		//Stage.getInstance().shepherd = character;
+		//Stage.getInstance().readyToStep = true;
 	}
 }

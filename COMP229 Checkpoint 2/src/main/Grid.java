@@ -16,8 +16,13 @@ public class Grid implements Iterable<Cell> {
 		for(Cell c : this) c.draw(g);
 	}
 
-  public Cell getCell(int i, int j)        {return cells[i*20+j];}
-  public void putCell(int i, int j, Cell e){cells[i*20+j] = e;}
+	public Cell getCell(int i, int j){
+		return cells[i*20+j];
+	}
+	
+	public void putCell(int i, int j, Cell e){
+		cells[i*20+j] = e;
+	}
 
 	public Cell giveMeRandomCell(){
 		int x = java.util.concurrent.ThreadLocalRandom.current().nextInt(0, 20);
@@ -27,12 +32,12 @@ public class Grid implements Iterable<Cell> {
 
 	public Cell cellAt(Point point){
 		for(int i = 0; i < 20; i++){
-		  	for(int j = 0; j < 20; j++){
-		  		Cell current = cells[i*20 + j];
-		  		if (current.getBounds().contains(point)) {
-		  			return current;
-	        }
-		  	}
+			for(int j = 0; j < 20; j++){
+				Cell current = cells[i*20 + j];
+				if (current.getBounds().contains(point)) {
+					return current;
+				}
+			}
 		}
 		return null;
 	}

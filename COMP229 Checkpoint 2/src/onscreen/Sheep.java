@@ -1,6 +1,7 @@
 package onscreen;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import behaviours.Behaviour;
 import main.*;
@@ -22,6 +23,11 @@ public class Sheep extends Character {
 			return false;
 		}
 
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
